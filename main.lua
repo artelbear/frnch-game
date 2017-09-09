@@ -1,5 +1,4 @@
 function love.load()
-    time = 1
     grid = {
         w = 10,
         h = 7
