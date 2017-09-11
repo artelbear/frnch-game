@@ -21,7 +21,7 @@ function load()
     menu.start.w = 700
     menu.exit.w = 300
     menu.about.w = 500
-    menu.head.Text:setf("The Game Имя", menu.head.w, "center")
+    menu.head.Text:setf("douceur sur l'eau", menu.head.w, "center")
     menu.start.Text:setf("Start game", menu.start.w, "center")
     menu.exit.Text:setf("Exit", menu.exit.w, "center")
     menu.about.Text:setf("by Artel Bear", menu.about.w, "right")
