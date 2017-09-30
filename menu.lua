@@ -61,37 +61,36 @@ function load()
     menu.about.fun = function()
         love.system.openURL("http://the.artelbear.space/")
     end
-
-
-    wawe = 0
-    waweStep = 0.1
-
-    local em = {}
-    em.w = grid.w / 50
-    em.h = grid.h / 50
-    line = {}
-    for j = 0, 50 do
-        for i = 0, 50 do
-            line[#line+1] = em.w * i
-            line[#line+1] = em.h * j
-        end
-    end
-    print(table.concat(line, "), ("))
 end
 
 function update(dt)
     time = time + dt
+
+    if time > 2 then
+        if love.audio.getSourceCount() < 1 then
+            local files = love.filesystem.getDirectoryItems("music")
+            local what = "music/" .. files[love.math.random(#files)]
+            local music = love.audio.newSource(what, "stream")
+            print(what)
+            music:setLooping(true)
+            music:play()
+        end
+    else
+        love.audio.stop()
+    end        
+
     normalTime = math.floor(time * 1000)
+    
     if normalTime ~= step then
         step = normalTime
+    
         if step % 2 == 0 then
             -- PLACE FOR CURVE OF WAWESTEP
-            if wawe < -5 or wawe > 5 then
-                waweStep = -waweStep
-            end
-            wawe = wawe + waweStep
         end
+    
     end
+
+    
     for key, val in pairs(menu) do
         if val ~= nil and val.fun ~= nil then
             x, y = mou()
@@ -112,14 +111,18 @@ end
 function draw()
     love.graphics.setColor(colors.l)
     love.graphics.setBackgroundColor(colors.d)
-    love.graphics.setColor(colors.b)
-    -- love.graphics.line()
+
+    -- cryasony
+
     love.graphics.setColor(menu.head.Color)
-    love.graphics.draw(menu.head.Text, menu.head.x + wawe, menu.head.y)
+    love.graphics.draw(menu.head.Text, menu.head.x, menu.head.y)
+
     love.graphics.setColor(menu.start.Color)
-    love.graphics.draw(menu.start.Text, menu.start.x - wawe, menu.start.y)
+    love.graphics.draw(menu.start.Text, menu.start.x, menu.start.y)
+
     love.graphics.setColor(menu.exit.Color)
-    love.graphics.draw(menu.exit.Text, menu.exit.x + wawe, menu.exit.y)
+    love.graphics.draw(menu.exit.Text, menu.exit.x, menu.exit.y)
+
     love.graphics.setColor(menu.about.Color)
-    love.graphics.draw(menu.about.Text, menu.about.x - wawe, menu.about.y)
+    love.graphics.draw(menu.about.Text, menu.about.x, menu.about.y)
 end
