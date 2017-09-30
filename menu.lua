@@ -70,14 +70,26 @@ end
 
 function update(dt)
     time = time + dt
-    normalTime = math.floor(time)
+    normalTime = math.floor(time * 100)
     
     if normalTime ~= step then
         step = normalTime
     
-        if step % 2 == 0 then
-            kr = images.kr[love.math.random(#images.kr)]
+        if step % 200 == 0 then
+            rain[#rain + 1] = {}
+            rain[#rain].i = images.kr[love.math.random(#images.kr)]
+            rain[#rain].x = love.math.random(-30, 30)
+            rain[#rain].y = love.math.random(-30, 30)
+            rain[#rain].r = 0
         end
+
+        if step % 1 == 0 then
+            for i, drop in ipairs(rain) do
+                drop.x = drop.x + 2.5
+                drop.y = drop.y + 1.5
+                drop.r = drop.r + love.math.random(10) / 10
+            end
+        end        
     
     end
 
@@ -104,7 +116,11 @@ function draw()
     love.graphics.setColor(colors.l)
     love.graphics.setBackgroundColor(colors.d)
 
-    love.graphics.draw(kr)
+
+    love.graphics.setColor(hc("#cccccc"))
+    for i, drop in ipairs(rain) do
+        love.graphics.draw(drop.i, drop.x, drop.y, drop.r / 100)
+    end
 
     love.graphics.setColor(menu.head.Color)
     love.graphics.draw(menu.head.Text, menu.head.x, menu.head.y)
