@@ -28,12 +28,12 @@ function load()
     menu.head.w = 2400
     menu.start.w = 700
     menu.exit.w = 300
-    menu.about.w = 500
+    menu.about.w = 700
     
     menu.head.Text:setf("douceur sur l'eau", menu.head.w, "center")
     menu.start.Text:setf("Start game", menu.start.w, "center")
     menu.exit.Text:setf("Exit", menu.exit.w, "center")
-    menu.about.Text:setf("by Artel Bear", menu.about.w, "right")
+    menu.about.Text:setf("by Artel Bear\nArt: E. Kudryavtseva\nArt: Y. Ilyushkina\nManage: D. Shchur\nCode: N. Kiselev", menu.about.w, "right")
     
     menu.head.x = 50
     menu.head.y = 50
@@ -44,8 +44,8 @@ function load()
     menu.exit.x = 1050
     menu.exit.y = 575
 
-    menu.about.x = 1900
-    menu.about.y = 1350
+    menu.about.x = 1700
+    menu.about.y = 1050
 
 
     menu.start.fun = function()
@@ -113,7 +113,7 @@ function draw()
     love.graphics.setColor(colors.l)
     love.graphics.setBackgroundColor(colors.d)
     love.graphics.setColor(colors.b)
-    love.graphics.line()
+    -- love.graphics.line()
     love.graphics.setColor(menu.head.Color)
     love.graphics.draw(menu.head.Text, menu.head.x + wawe, menu.head.y)
     love.graphics.setColor(menu.start.Color)
