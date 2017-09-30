@@ -4,6 +4,7 @@
 
 function load()
     time = 0
+    kr = images.kr[love.math.random(#images.kr)]    
 
     
     menu = {
@@ -33,7 +34,7 @@ function load()
     menu.head.Text:setf("douceur sur l'eau", menu.head.w, "center")
     menu.start.Text:setf("Start game", menu.start.w, "center")
     menu.exit.Text:setf("Exit", menu.exit.w, "center")
-    menu.about.Text:setf("by Artel Bear\nArt: E. Kudryavtseva\nArt: Y. Ilyushkina\nManage: D. Shchur\nCode: N. Kiselev", menu.about.w, "right")
+    menu.about.Text:setf({colors.l, "BY ARTEL BEAR\n", colors.b, "Art: E. Kudryavtseva\n", colors.b, "Art: Y. Ilyushkina\n", colors.b, "Manage: D. Shchur\n", colors.b, "Code: N. Kiselev\n"}, menu.about.w, "right")
     
     menu.head.x = 50
     menu.head.y = 50
@@ -61,31 +62,21 @@ function load()
     menu.about.fun = function()
         love.system.openURL("http://the.artelbear.space/")
     end
+
+
+    rain = {}
 end
+
 
 function update(dt)
     time = time + dt
-
-    if time > 2 then
-        if love.audio.getSourceCount() < 1 then
-            local files = love.filesystem.getDirectoryItems("music")
-            local what = "music/" .. files[love.math.random(#files)]
-            local music = love.audio.newSource(what, "stream")
-            print(what)
-            music:setLooping(true)
-            music:play()
-        end
-    else
-        love.audio.stop()
-    end        
-
-    normalTime = math.floor(time * 1000)
+    normalTime = math.floor(time)
     
     if normalTime ~= step then
         step = normalTime
     
         if step % 2 == 0 then
-            -- PLACE FOR CURVE OF WAWESTEP
+            kr = images.kr[love.math.random(#images.kr)]
         end
     
     end
@@ -108,11 +99,12 @@ function update(dt)
     end
 end
 
+
 function draw()
     love.graphics.setColor(colors.l)
     love.graphics.setBackgroundColor(colors.d)
 
-    -- cryasony
+    love.graphics.draw(kr)
 
     love.graphics.setColor(menu.head.Color)
     love.graphics.draw(menu.head.Text, menu.head.x, menu.head.y)
