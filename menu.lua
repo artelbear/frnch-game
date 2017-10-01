@@ -50,8 +50,8 @@ function load()
 
 
     menu.start.fun = function()
-        start = love.filesystem.load("start.lua")
-        start()
+        load_start = love.filesystem.load("load_start.lua")
+        load_start()
         load()
     end
 
@@ -77,9 +77,9 @@ function update(dt)
     if normalTime ~= step then
         step = normalTime
     
-        if step % 20 == 0 then
+        if step % 10 == 0 then
             rain[#rain + 1] = {}
-            rain[#rain].i = 10
+            rain[#rain].i = love.math.random(7)
             rain[#rain].x = love.math.random(0, grid.w)
             rain[#rain].y = -rain[#rain].i / 2
             rain[#rain].f = true
@@ -88,7 +88,12 @@ function update(dt)
         if step % 1 == 0 then
             for i, drop in ipairs(rain) do
                 if drop.y < grid.h * 1.3 then
-                    drop.y = drop.y + 1.5
+                    drop.y = drop.y + 5
+                    if i % 2 == 0 then
+                        drop.x = drop.x + 0.5
+                    else
+                        drop.x = drop.x - 0.5
+                    end
                 else
                     drop.f = false
                 end
@@ -117,13 +122,10 @@ end
 
 
 function draw()
-    love.graphics.setColor(colors.l)
-    love.graphics.setBackgroundColor(colors.d)
-
     love.graphics.setColor(255, 255, 255, 100)
     love.graphics.draw(background)
 
-    love.graphics.setLineWidth(5)
+    love.graphics.setLineWidth(15)
     for i, drop in ipairs(rain) do
         if drop.f then
             love.graphics.setColor(colors.b)

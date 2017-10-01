@@ -84,6 +84,8 @@ end
 
 function love.draw()
     drawfit()
+    love.graphics.setColor(colors.l)
+    love.graphics.setBackgroundColor(colors.d)
     draw()
     meshfit()
 end
