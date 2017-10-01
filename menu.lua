@@ -29,12 +29,12 @@ function load()
     menu.head.w = 2400
     menu.start.w = 700
     menu.exit.w = 300
-    menu.about.w = 700
+    menu.about.w = 500
     
     menu.head.Text:setf("douceur sur l'eau", menu.head.w, "center")
     menu.start.Text:setf("Start game", menu.start.w, "center")
     menu.exit.Text:setf("Exit", menu.exit.w, "center")
-    menu.about.Text:setf({colors.l, "BY ARTEL BEAR\n", colors.b, "Art: E. Kudryavtseva\n", colors.b, "Art: Y. Ilyushkina\n", colors.b, "Manage: D. Shchur\n", colors.b, "Code: N. Kiselev\n"}, menu.about.w, "right")
+    menu.about.Text:setf("by Artel Bear --1", menu.about.w, "right")
     
     menu.head.x = 50
     menu.head.y = 50
@@ -45,8 +45,8 @@ function load()
     menu.exit.x = 1050
     menu.exit.y = 575
 
-    menu.about.x = 1700
-    menu.about.y = 1050
+    menu.about.x = 1900
+    menu.about.y = 1400
 
 
     menu.start.fun = function()
@@ -65,29 +65,33 @@ function load()
 
 
     rain = {}
+
+    background = love.graphics.newImage("img/bg.jpg")
 end
 
 
 function update(dt)
     time = time + dt
-    normalTime = math.floor(time * 100)
+    normalTime = math.floor(time * 55)
     
     if normalTime ~= step then
         step = normalTime
     
-        if step % 200 == 0 then
+        if step % 100 == 0 then
             rain[#rain + 1] = {}
-            rain[#rain].i = images.kr[love.math.random(#images.kr)]
-            rain[#rain].x = love.math.random(-30, 30)
-            rain[#rain].y = love.math.random(-30, 30)
-            rain[#rain].r = 0
+            rain[#rain].i = 20
+            rain[#rain].x = love.math.random(0, grid.w)
+            rain[#rain].y = -rain[#rain].i / 2
+            rain[#rain].f = true
         end
 
         if step % 1 == 0 then
             for i, drop in ipairs(rain) do
-                drop.x = drop.x + 2.5
-                drop.y = drop.y + 1.5
-                drop.r = drop.r + love.math.random(10) / 10
+                if drop.y < grid.h * 1.3 then
+                    drop.y = drop.y + 1.5
+                else
+                    drop.f = false
+                end
             end
         end        
     
@@ -116,10 +120,12 @@ function draw()
     love.graphics.setColor(colors.l)
     love.graphics.setBackgroundColor(colors.d)
 
+    love.graphics.draw(background)
 
-    love.graphics.setColor(hc("#cccccc"))
     for i, drop in ipairs(rain) do
-        love.graphics.draw(drop.i, drop.x, drop.y, drop.r / 100)
+        if drop.f then
+            love.graphics.circle("line", drop.x, drop.y, drop.i)
+        end
     end
 
     love.graphics.setColor(menu.head.Color)
