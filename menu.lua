@@ -77,9 +77,9 @@ function update(dt)
     if normalTime ~= step then
         step = normalTime
     
-        if step % 100 == 0 then
+        if step % 20 == 0 then
             rain[#rain + 1] = {}
-            rain[#rain].i = 20
+            rain[#rain].i = 10
             rain[#rain].x = love.math.random(0, grid.w)
             rain[#rain].y = -rain[#rain].i / 2
             rain[#rain].f = true
@@ -120,11 +120,15 @@ function draw()
     love.graphics.setColor(colors.l)
     love.graphics.setBackgroundColor(colors.d)
 
+    love.graphics.setColor(255, 255, 255, 100)
     love.graphics.draw(background)
 
+    love.graphics.setLineWidth(5)
     for i, drop in ipairs(rain) do
         if drop.f then
+            love.graphics.setColor(colors.b)
             love.graphics.circle("line", drop.x, drop.y, drop.i)
+            love.graphics.circle("fill", drop.x, drop.y, drop.i)
         end
     end
 
