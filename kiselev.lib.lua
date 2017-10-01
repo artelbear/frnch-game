@@ -1,21 +1,22 @@
 -- COPYRIGHT: KISELEV 2017
 -- Licence: MIT
 
-if grid == nil then
-    grid = {
-        w = 600,
-        h = 600
-    }
-end
 
 function mou(x, y)
 	if x == nil or y == nil then
-		x, y = love.mouse.getPosition()
+		if orientation_portrait then
+			y, x = love.mouse.getPosition()
+		else
+			x, y = love.mouse.getPosition()
+		end
 	end
 	local w, h = love.window.getMode()
 	local nx = x / s - fortouch[1]
 	local ny = y / s - fortouch[2]
 	if nx >= 0 and ny >= 0 and nx <= grid.w and ny <= grid.h then
+		if orientation_portrait then
+			nx = grid.w - nx
+		end
 		return nx, ny
 	else
 		return nil, nil
@@ -28,7 +29,11 @@ function hc(hex)
 end
 
 function fit()
-	local w, h = love.window.getMode()
+	if orientation_portrait then
+		h, w = love.window.getMode()
+	else
+	    w, h = love.window.getMode()
+	end
 	if w / grid.w < h / grid.h then
 		s = w / grid.w
 		t = {0, (h / s - grid.h) / 2}
@@ -39,7 +44,6 @@ function fit()
     backimg = love.graphics.newImage(".bmp")
     backimg:setWrap("repeat")
     backimg:setFilter("nearest")
-    local w, h = love.window.getMode()
     local iw, ih = backimg:getDimensions()
     iw = (iw / s) * 2
     ih = (ih / s) * 2
@@ -115,7 +119,13 @@ end
 
 function drawfit()
 	love.graphics.scale(s, s)
-	love.graphics.translate(t[1], t[2])
+	if orientation_portrait then
+		love.graphics.translate(t[2], t[1])
+		love.graphics.translate(0, grid.w)
+		love.graphics.rotate(-math.rad(90))
+	else
+		love.graphics.translate(t[1], t[2])
+	end
 end
 
 function meshfit()

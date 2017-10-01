@@ -29,8 +29,8 @@ function love.load()
     lib()
 
     grid = {
-        w = 2500,
-        h = 1500
+        w = 1500,
+        h = 2500
     }
     fonts = {
         h = love.graphics.newFont("font/Sunday-Regular.otf", 200),
@@ -66,7 +66,7 @@ function love.load()
         love.graphics.setBackgroundColor(colors.d)
         if fonts.f ~= nil then
             love.graphics.setFont(fonts.f)
-            love.graphics.printf("Loading...", 0, 710, 2500, "center")
+            love.graphics.printf("Loading...", 0, 1210, 1500, "center")
         end
     end
 end

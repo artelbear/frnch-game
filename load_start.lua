@@ -9,7 +9,7 @@ function load()
         love.graphics.setBackgroundColor(colors.d)
         if fonts.f ~= nil then
             love.graphics.setFont(fonts.f)
-            love.graphics.printf("Loading...", 0, 710, 2500, "center")
+            love.graphics.printf("Loading...", 0, 1210, 1500, "center")
         end
     end
     

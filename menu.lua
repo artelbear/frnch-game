@@ -26,7 +26,7 @@ function load()
         }
     }
     
-    menu.head.w = 2400
+    menu.head.w = grid.w - 100
     menu.start.w = 700
     menu.exit.w = 300
     menu.about.w = 500
@@ -34,19 +34,19 @@ function load()
     menu.head.Text:setf("douceur sur l'eau", menu.head.w, "center")
     menu.start.Text:setf("Start game", menu.start.w, "center")
     menu.exit.Text:setf("Exit", menu.exit.w, "center")
-    menu.about.Text:setf("by Artel Bear --1", menu.about.w, "right")
+    menu.about.Text:setf("by Artel Bear", menu.about.w, "right")
     
     menu.head.x = 50
     menu.head.y = 50
 
-    menu.start.x = 900
-    menu.start.y = 375
+    menu.start.x = 400
+    menu.start.y = 600
 
-    menu.exit.x = 1050
-    menu.exit.y = 575
+    menu.exit.x = 600
+    menu.exit.y = 800
 
-    menu.about.x = 1900
-    menu.about.y = 1400
+    menu.about.x = 900
+    menu.about.y = 2350
 
 
     menu.start.fun = function()
@@ -79,7 +79,7 @@ function update(dt)
     
         if step % 10 == 0 then
             rain[#rain + 1] = {}
-            rain[#rain].i = love.math.random(7)
+            rain[#rain].i = love.math.random(6, 15)
             rain[#rain].x = love.math.random(0, grid.w)
             rain[#rain].y = -rain[#rain].i / 2
             rain[#rain].f = true
@@ -89,6 +89,7 @@ function update(dt)
             for i, drop in ipairs(rain) do
                 if drop.y < grid.h * 1.3 then
                     drop.y = drop.y + 5
+                    drop.i = drop.i - 0.01
                     if i % 2 == 0 then
                         drop.x = drop.x + 0.5
                     else
@@ -125,7 +126,7 @@ function draw()
     love.graphics.setColor(255, 255, 255, 100)
     love.graphics.draw(background)
 
-    love.graphics.setLineWidth(15)
+    love.graphics.setLineWidth(5)
     for i, drop in ipairs(rain) do
         if drop.f then
             love.graphics.setColor(colors.b)
