@@ -5,7 +5,8 @@
 print("been confed")
 
 function love.conf(t)
-    orientation_portrait = true
+    orientation_portrait = false
+    music_active = false    
 
     t.identity = nil
     t.version = "0.10.2"

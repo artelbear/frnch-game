@@ -10,12 +10,14 @@ function love.load()
     
     if love.audio.getSourceCount() < 1 then
         love.audio.stop()
-        local files = love.filesystem.getDirectoryItems("music")
-        local what = "music/" .. files[love.math.random(#files)]
-        local music = love.audio.newSource(what, "stream")
-        print(what)
-        music:setLooping(true)
-        music:play()
+        if music_active then
+            local files = love.filesystem.getDirectoryItems("music")
+            local what = "music/" .. files[love.math.random(#files)]
+            local music = love.audio.newSource(what, "stream")
+            print(what)
+            music:setLooping(true)
+            music:play()
+        end
     end
     
     images = {}
