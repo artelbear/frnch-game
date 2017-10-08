@@ -2,8 +2,6 @@
 -- Just part
 
 
-print("been confed")
-
 function love.conf(t)
     orientation_portrait = false
     music_active = false    

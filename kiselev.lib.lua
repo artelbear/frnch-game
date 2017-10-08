@@ -147,3 +147,26 @@ fur.split = function (inputstr, sep)
         end
         return t
 end
+
+fur.mesh = function (img, ...)
+	local vertices = {...}
+	if #vertices % 2 == 0 then
+		local corners_count = #vertices / 2
+		local corners = {}
+		for i = 1, corners_count do
+			corners[i] = {vertices[i * 2 - 1], vertices[i * 2]}
+		end
+
+		img:setWrap("repeat")
+		img:setFilter("nearest")
+		local iw, ih = backimg:getDimensions()
+		iw = (iw / s)
+		ih = (ih / s)
+		vertices = {
+			{0, 0, 0, 0, 255, 255, 255},
+			{grid.w, 0, grid.w / iw, 0, 255, 255, 255},
+			{grid.w, side, grid.w / iw, side / ih, 255, 255, 255},
+			{0, side, 0, side / ih, 255, 255, 255}
+		}
+	end
+end

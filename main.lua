@@ -75,7 +75,7 @@ end
 
 
 function love.update(dt)
-    if love.keyboard.isDown("escape") then
+    if love.keyboard.isDown("escape") and love.keyboard.isDown("q") then
         love.event.quit()
     end
     if update ~= nil then

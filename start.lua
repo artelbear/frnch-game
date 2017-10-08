@@ -2,6 +2,9 @@
 -- Just part of project
 
 
+local tester = love.filesystem.load("test.lua")
+tester()
+
 function load()
     love.physics.setMeter(1500)
     realm = {
@@ -25,12 +28,12 @@ function load()
     realm.obj.first_player.b:setLinearDamping(0.574)
     realm.obj.first_player.b:setMass(1000)
 
-    realm.obj.left_mesh.b = love.physics.newBody(realm.main, grid.w / 8, grid.h / 2, "static")
-    realm.obj.left_mesh.s = love.physics.newRectangleShape(0, 0, grid.w / 4, grid.h)
+    realm.obj.left_mesh.b = love.physics.newBody(realm.main, grid.w / 12, grid.h / 2, "static")
+    realm.obj.left_mesh.s = love.physics.newRectangleShape(0, 0, grid.w / 8, grid.h)
     realm.obj.left_mesh.f = love.physics.newFixture(realm.obj.left_mesh.b, realm.obj.left_mesh.s)
 
-    realm.obj.right_mesh.b = love.physics.newBody(realm.main, grid.w / 8 * 7, grid.h / 2, "static")
-    realm.obj.right_mesh.s = love.physics.newRectangleShape(0, 0, grid.w / 4, grid.h)
+    realm.obj.right_mesh.b = love.physics.newBody(realm.main, grid.w / 12 * 11, grid.h / 2, "static")
+    realm.obj.right_mesh.s = love.physics.newRectangleShape(0, 0, grid.w / 8, grid.h)
     realm.obj.right_mesh.f = love.physics.newFixture(realm.obj.right_mesh.b, realm.obj.right_mesh.s)
 
     realm.main:setCallbacks(beginContact, endContact, preSolve, postSolve)
@@ -45,11 +48,11 @@ end
 
 action = {
     right = function()
-        realm.obj.first_player.b:applyAngularImpulse(25)
+        realm.obj.first_player.b:applyAngularImpulse(5)
         realm.obj.first_player.b:applyLinearImpulse(75000, 25)
     end,
     left = function()
-        realm.obj.first_player.b:applyAngularImpulse(-25)
+        realm.obj.first_player.b:applyAngularImpulse(-5)
         realm.obj.first_player.b:applyLinearImpulse(-75000, 25)
     end,
     up = function()
@@ -103,7 +106,6 @@ end
 
 function draw()
     love.graphics.draw(realm.obj.first_player.i, realm.obj.first_player.b:getX(), realm.obj.first_player.b:getY(), realm.obj.first_player.b:getAngle(), 1, 1, realm.obj.first_player.w / 2, realm.obj.first_player.h / 2)
-    -- love.graphics.polygon("line", realm.obj.first_player.b:getWorldPoints(realm.obj.first_player.s:getPoints()))
-    love.graphics.polygon("line", realm.obj.left_mesh.b:getWorldPoints(realm.obj.left_mesh.s:getPoints()))
-    love.graphics.polygon("line", realm.obj.right_mesh.b:getWorldPoints(realm.obj.right_mesh.s:getPoints()))
+    love.graphics.polygon("fill", realm.obj.left_mesh.b:getWorldPoints(realm.obj.left_mesh.s:getPoints()))
+    love.graphics.polygon("fill", realm.obj.right_mesh.b:getWorldPoints(realm.obj.right_mesh.s:getPoints()))
 end
