@@ -150,23 +150,18 @@ end
 
 fur.mesh = function (img, ...)
 	local vertices = {...}
-	if #vertices % 2 == 0 then
-		local corners_count = #vertices / 2
-		local corners = {}
-		for i = 1, corners_count do
-			corners[i] = {vertices[i * 2 - 1], vertices[i * 2]}
-		end
-
-		img:setWrap("repeat")
-		img:setFilter("nearest")
-		local iw, ih = backimg:getDimensions()
-		iw = (iw / s)
-		ih = (ih / s)
-		vertices = {
-			{0, 0, 0, 0, 255, 255, 255},
-			{grid.w, 0, grid.w / iw, 0, 255, 255, 255},
-			{grid.w, side, grid.w / iw, side / ih, 255, 255, 255},
-			{0, side, 0, side / ih, 255, 255, 255}
-		}
-	end
+	img:setWrap("mirroredrepeat")
+	img:setFilter("nearest")
+	local iw, ih = backimg:getDimensions()
+	iw = iw * 15
+	ih = ih * 15
+	vertices = {
+		{vertices[1], vertices[2], vertices[1] / iw, vertices[2] / ih, 255, 255, 255},
+		{vertices[3], vertices[4], vertices[3] / iw, vertices[4] / ih, 255, 255, 255},
+		{vertices[7], vertices[8], vertices[7] / iw, vertices[8] / ih, 255, 255, 255},
+		{vertices[5], vertices[6], vertices[5] / iw, vertices[6] / ih, 255, 255, 255},
+	}
+	local m = love.graphics.newMesh(vertices, "fan")
+	m:setTexture(img)
+	return m
 end
