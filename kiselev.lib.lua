@@ -1,7 +1,6 @@
 -- COPYRIGHT: KISELEV 2017
 -- Licence: MIT
 
-
 function mou(x, y)
 	if x == nil or y == nil then
 		if orientation_portrait then
@@ -20,7 +19,7 @@ function mou(x, y)
 		return nx, ny
 	else
 		return nil, nil
-	end		
+	end
 end
 
 function hc(hex)

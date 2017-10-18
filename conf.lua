@@ -4,7 +4,7 @@
 
 function love.conf(t)
     orientation_portrait = false
-    music_active = false    
+    music_active = false
 
     t.identity = nil
     t.version = "0.10.2"
@@ -12,7 +12,7 @@ function love.conf(t)
     t.accelerometerjoystick = true
     t.externalstorage = false
     t.gammacorrect = false
- 
+
     t.window.title = "Untitled"
     t.window.icon = nil
     t.window.width = 800
@@ -29,7 +29,7 @@ function love.conf(t)
     t.window.highdpi = false
     t.window.x = nil
     t.window.y = nil
- 
+
     t.modules.audio = true
     t.modules.event = true
     t.modules.graphics = true
