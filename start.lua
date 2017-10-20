@@ -4,9 +4,10 @@
 function load()
   local elibs = love.filesystem.load("elibs.lua")
   elibs()
+
   love.physics.setMeter(1500)
   world = love.physics.newWorld(0, 0)
-  game.add()
+  game.add(1, 1)
 end
 
 function update(dt)

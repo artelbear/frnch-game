@@ -12,9 +12,9 @@ function load()
             love.graphics.printf("Loading...", 0, 1210, 1500, "center")
         end
     end
-    
-    startit = love.filesystem.load("start.lua")    
-    
+
+    startit = love.filesystem.load("start.lua")
+
     images = {}
     images.bargas = {}
     local files = love.filesystem.getDirectoryItems("img/sh")
@@ -23,6 +23,9 @@ function load()
         vname = vname[1]
         images.bargas[vname] = love.graphics.newImage("img/sh/" .. v)
     end
+
+    images.content = {}
+    images.content.i = love.graphics.newImage("img/tx/iron.png")
 
     function update(dt)
         if time == nil then
