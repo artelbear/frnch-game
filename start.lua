@@ -7,11 +7,22 @@ function load()
 
   love.physics.setMeter(1500)
   world = love.physics.newWorld(0, 0)
-  game.add(1, 1)
+  game.add(2, 11, "future")
+  obj = game.map.phy()
 end
 
 function update(dt)
   world:update(dt)
+  if love.keyboard.isDown("up") then
+    local A = player[1].b:getAngle()
+    player[1].b:applyForce(math.cos(A) * 10, math.sin(A) * 10)
+  end
+  if love.keyboard.isDown("right") then
+    player[1].b:applyAngularImpulse(20)
+  end
+  if love.keyboard.isDown("left") then
+    player[1].b:applyAngularImpulse(-20)
+  end
 end
 
 function draw()
