@@ -7,8 +7,10 @@ function load()
 
   love.physics.setMeter(1500)
   world = love.physics.newWorld(0, 0)
-  game.add(2, 11, "future")
+  game.add(2, 11, "shfuture")
   obj = game.map.phy()
+
+  game.map.set("w", 1, 1, 1, 2, 3, 3)
 end
 
 function update(dt)

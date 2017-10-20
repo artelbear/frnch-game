@@ -16,16 +16,9 @@ function load()
     startit = love.filesystem.load("start.lua")
 
     images = {}
-    images.bargas = {}
-    local files = love.filesystem.getDirectoryItems("img/sh")
-    for i, v in ipairs(files) do
-        vname = fur.split(v, ".")
-        vname = vname[1]
-        images.bargas[vname] = love.graphics.newImage("img/sh/" .. v)
-    end
-
-    images.content = {}
-    images.content.i = love.graphics.newImage("img/tx/iron.png")
+    loadFolder("sh", "bargas")
+    loadFolder("bl", "content")
+    loadInFolder("br", "content")
 
     function update(dt)
         if time == nil then

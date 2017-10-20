@@ -1,6 +1,42 @@
 -- COPYRIGHT: KISELEV 2017
 -- Licence: MIT
 
+function hasTV (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+    return false
+end
+
+function loadFolder(where, tname)
+  if invisible == nil then invisible = {"w"} end
+  if images[tname] == nil then
+    images[tname] = {}
+  end
+  local files = love.filesystem.getDirectoryItems("img/" .. where)
+  for i, v in ipairs(files) do
+      vname = fur.split(v, ".")
+      vname = where .. vname[1]
+      images[tname][vname] = love.graphics.newImage("img/" .. where .. "/" .. v)
+  end
+end
+
+function loadInFolder(where, tname)
+  if invisible == nil then invisible = {"w"} end
+  if images[tname] == nil then
+    images[tname] = {}
+  end
+  local files = love.filesystem.getDirectoryItems("img/" .. where)
+  for i, v in ipairs(files) do
+      vname = fur.split(v, ".")
+      vname = where .. vname[1]
+      invisible[#invisible + 1] = vname
+      images[tname][vname] = love.graphics.newImage("img/" .. where .. "/" .. v)
+  end
+end
+
 function mou(x, y)
 	if x == nil or y == nil then
 		if orientation_portrait then

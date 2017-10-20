@@ -10,19 +10,21 @@ do --init
   player = {}
   scale = 0.5
 
-  map = {
-    {"0", "0", "0", "0", "0", "0", "0"},
-    {"0", "", "", "", "0", "w", "0"},
-    {"0", "", "0", "", "0", "", "0"},
-    {"0", "", "0", "", "0", "", "0"},
-    {"0", "", "0", "", "0", "", "0"},
-    {"0", "", "0", "", "0", "", "0"},
-    {"0", "", "0", "", "0", "", "0"},
-    {"0", "", "0", "", "0", "", "0"},
-    {"0", "", "0", "", "0", "", "0"},
-    {"0", "", "0", "", "", "", "0"},
-    {"0", "", "0", "0", "0", "0", "0"}
-  }
+  if map == nil then
+    map = {
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""},
+      {"", "", "", "", "", "", ""}
+    }
+  end
 
   wid = grid.w / #map[1]
   hid = grid.h / #map
@@ -30,7 +32,7 @@ end
 
 function game.add(posx, posy, sprite)
   n = #player + 1
-  if sprite == nil then sprite = "first" end
+  if sprite == nil then sprite = "shfirst" end
   player[n] = {}
   player[n].i = images.bargas[sprite]
   player[n].w = player[n].i:getWidth() * scale
@@ -48,7 +50,16 @@ function game.autodraw()
   end
   for y, line in ipairs(map) do
     for x, content in ipairs(line) do
-      if content ~= "" then
+      if hasTV(invisible, content) then
+        local x = x - 1
+        local y = y - 1
+        local im = images.content[content]
+        if im ~= nil then
+          love.graphics.draw(images.content[content], x * wid, y * hid, 0, wid / im:getWidth(), hid / im:getHeight())
+        else
+          love.graphics.rectangle("line", x * wid, y * hid, wid, hid)
+        end
+      elseif content ~= "" then
         local x = x - 1
         local y = y - 1
         local im = images.content[content]
@@ -62,8 +73,11 @@ function game.autodraw()
   end
 end
 
-function game.map.set(x, y, content)
-  map[y][x] = content
+function game.map.set(content, ...)
+  local dots = {...}
+  for i = 1, #dots / 2 + 1 do
+    map[dots[i + 1]][dots[i]] = content
+  end
 end
 
 function game.map.get(x, y)
@@ -84,7 +98,7 @@ function game.map.phy()
   obj = {}
   for y, line in ipairs(map) do
     for x, content in ipairs(line) do
-      if content ~= "" then
+      if content ~= "" and (not hasTV(invisible, content)) then
         local x = x - 1
         local y = y - 1
         local n = #obj + 1
