@@ -1,13 +1,21 @@
 -- COPYRIGHT: KISELEV 2017
 -- Licence: MIT
 
-function hasTV (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
+function hasTV(tab, val)
+  for index, value in ipairs(tab) do
+    if value == val then
+      return true
     end
-    return false
+  end
+  return false
+end
+
+function keysTV(tab)
+  local keyset = {}
+  for k, v in pairs(tab) do
+    keyset[#keyset + 1] = k
+  end
+  return keyset
 end
 
 function loadFolder(where, tname)

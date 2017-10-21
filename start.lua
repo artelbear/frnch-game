@@ -7,10 +7,29 @@ function load()
 
   love.physics.setMeter(1500)
   world = love.physics.newWorld(0, 0)
-  game.add(2, 11, "shfuture")
-  obj = game.map.phy()
+  borders = {}
+  borders.b = love.physics.newBody(world, 0, 0, "static")
+  borders.s = love.physics.newChainShape(true, 0, 0, grid.w, 0, grid.w, grid.h, 0, grid.h)
+  borders.f = love.physics.newFixture(borders.b, borders.s)
 
-  game.map.set("w", 1, 1, 1, 2, 3, 3)
+  game.map.size(5)
+  game.add(2, 8)
+
+  electromap = {
+    {"1", "", "", "", "1"},
+    {"1", "1", "1", "", ""},
+    {"1", "", "1", "1", ""},
+    {"1", "", "", "", ""},
+    {"1", "", "1", "", ""},
+    {"1", "", "1", "", "1"},
+    {"1", "", "1", "", ""},
+    {"1", "", "1", "1", "1"}
+  }
+
+  game.map.electro(electromap)
+  game.map.set("w", 2, 1)
+
+  obj = game.map.phy()
 end
 
 function update(dt)
@@ -28,5 +47,6 @@ function update(dt)
 end
 
 function draw()
+  -- love.graphics.setColor(colors.b)
   game.autodraw()
 end
