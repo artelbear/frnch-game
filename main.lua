@@ -6,8 +6,8 @@ function love.load()
     love.window.setFullscreen(true)
 
     lib = love.filesystem.load("kiselev.lib.lua")
-    menu = love.filesystem.load("menu.lua")    
-    
+    menu = love.filesystem.load("menu.lua")
+
     if love.audio.getSourceCount() < 1 then
         love.audio.stop()
         if music_active then
@@ -19,7 +19,7 @@ function love.load()
             music:play()
         end
     end
-    
+
     images = {}
     images.kr = {}
     local files = love.filesystem.getDirectoryItems("img/kr")
@@ -46,12 +46,12 @@ function love.load()
         b = hc("#788998"), -- blue
         r = hc("#cf4332")  -- red
     }
-    
-    
+
+
     fit()
-    love.graphics.setDefaultFilter("linear")
-    
-    
+    love.graphics.setDefaultFilter("nearest")
+
+
     function update(dt)
         if time == nil then
             time = dt
@@ -80,7 +80,7 @@ function love.update(dt)
     end
     if update ~= nil then
         update(dt)
-    end    
+    end
 end
 
 

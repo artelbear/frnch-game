@@ -4,9 +4,7 @@
 
 function load()
     time = 0
-    kr = images.kr[love.math.random(#images.kr)]    
 
-    
     menu = {
         head = {
             Color = colors.l,
@@ -25,17 +23,17 @@ function load()
             Text = love.graphics.newText(fonts.f)
         }
     }
-    
+
     menu.head.w = grid.w - 100
     menu.start.w = 700
     menu.exit.w = 300
     menu.about.w = 500
-    
+
     menu.head.Text:setf("douceur sur l'eau", menu.head.w, "center")
     menu.start.Text:setf("Start game", menu.start.w, "center")
     menu.exit.Text:setf("Exit", menu.exit.w, "center")
     menu.about.Text:setf("by Artel Bear", menu.about.w, "right")
-    
+
     menu.head.x = 50
     menu.head.y = 50
 
@@ -73,10 +71,10 @@ end
 function update(dt)
     time = time + dt
     normalTime = math.floor(time * 55)
-    
+
     if normalTime ~= step then
         step = normalTime
-    
+
         if step % 10 == 0 then
             rain[#rain + 1] = {}
             rain[#rain].i = love.math.random(6, 15)
@@ -99,11 +97,11 @@ function update(dt)
                     drop.f = false
                 end
             end
-        end        
-    
+        end
+
     end
 
-    
+
     for key, val in pairs(menu) do
         if val ~= nil and val.fun ~= nil then
             x, y = mou()
